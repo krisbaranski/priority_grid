@@ -1,4 +1,4 @@
-[![Priority Grid Logo](static/assets/priority.png)]()
+[![Priority Grid Logo](static/assets/priority.png)]
 
 # Priority Grid
 
