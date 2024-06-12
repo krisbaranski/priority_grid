@@ -1,4 +1,4 @@
-![Priority Grid Logo](static/assets/priority.png | width=150)
+<img src="https://github.com/krisbaranski/priority_grid/blob/main/static/assets/priority.png" alt="Priority Grid Logo" width="150" height="150">
 
 # Priority Grid
 
