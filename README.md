@@ -1,3 +1,5 @@
+[Priority Grid Logo](./static/assets/priority.png)
+
 # Priority Grid
 
 ## Webapp made in Flask, Python, JavaScript, SQLite3, HTML, CSS, Bootstrap.
