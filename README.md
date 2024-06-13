@@ -27,9 +27,11 @@ The method i implement is the **Prioritization Matrix**
 
 <div align="center">
 
-<img src="https://github.com/krisbaranski/priority_grid/blob/main/static/assets/prioritization_matrix.png" alt="Prioritization Matrix" width="350">
+<img src="https://github.com/krisbaranski/priority_grid/blob/main/static/assets/prioritization_matrix.png" alt="Prioritization Matrix" width="350" height="450">
 
 </div>
+
+<br/>
 
 This app is made - as its name already say - to specify, what your priorities are (in right order).
 For that, i implemented some code, where you can specify important properties as a list.
