@@ -25,7 +25,11 @@ For more information follow this [link](https://en.wikipedia.org/wiki/Time_manag
 
 The method i implement is the **Prioritization Matrix**
 
-<img src="https://github.com/krisbaranski/priority_grid/blob/main/static/assets/prioritization_matrix.png" alt="Prioritization Matrix" width="350" height="auto">
+<div align="center">
+
+<img src="https://github.com/krisbaranski/priority_grid/blob/main/static/assets/prioritization_matrix.png" alt="Prioritization Matrix" width="350">
+
+</div>
 
 This app is made - as its name already say - to specify, what your priorities are (in right order).
 For that, i implemented some code, where you can specify important properties as a list.
