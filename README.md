@@ -6,7 +6,11 @@
 
 </div>
 
-### Webapp made in Flask, Python, JavaScript, SQLite3, HTML, CSS, Bootstrap.
+#### Video Demo:
+
+### Description:
+
+#### Webapp made in Flask, Python, JavaScript, SQLite3, HTML, CSS, Bootstrap.
 
 This app is made - as its name already say - to specify, what your priorities are (in right order).
 
