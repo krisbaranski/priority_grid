@@ -12,6 +12,17 @@
 
 #### Webapp made in Flask, Python, JavaScript, SQLite3, HTML, CSS, Bootstrap.
 
+Prioritizing methods utilizes the principles of importance and urgency to organize priorities and workload.
+Here are some different approaches:
+
+- ABC analysis,
+- Pareto analysis,
+- Eisenhower Box...
+
+For more information follow this [link](https://en.wikipedia.org/wiki/Time_management#The_Eisenhower_Method)
+
+The method i will implement is the **Prioritization Matrix**
+
 This app is made - as its name already say - to specify, what your priorities are (in right order).
 For that, i implemented some code, where you can specify important properties as a list.
 Then, going through a random loop, these properties are shown as pairs, where you can choose only one, which is more of value.
