@@ -1,14 +1,12 @@
 <div align="center">
 <img src="https://github.com/krisbaranski/priority_grid/blob/main/static/assets/priority.png" alt="Priority Grid Logo" width="150" height="150">
+#
+# Priority Grid
 </div>
 
-#
+### Description:
 
 #### Video Demo:
-
-# Priority Grid
-
-### Description:
 
 #### Webapp made in Flask, Python, JavaScript, SQLite3, HTML, CSS, Bootstrap.
 
