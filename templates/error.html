@@ -1,0 +1,9 @@
+{% extends "layout.html" %} {% block main %}
+<div class="intro text-center">
+  <h2 class="py-5">Error</h2>
+  <p>{{ message }}</p>
+  <button class="btn btn-outline-light my-5" onclick="history.back()">
+    Go Back
+  </button>
+</div>
+{% endblock %}
