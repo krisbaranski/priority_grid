@@ -10,12 +10,14 @@
 
 #### Video Demo:
 
+## Tech Stack
+
+#### Flask, Python, JavaScript, SQLite3, HTML, CSS, Bootstrap
+
 ## Introduction:
 
-#### Webapp made in Flask, Python, JavaScript, SQLite3, HTML, CSS, Bootstrap.
-
 Prioritizing methods utilizes the principles of importance and urgency to organize priorities and workload.
-Here are some different approaches:
+Here are examples of approach:
 
 - ABC analysis,
 - Pareto analysis,
@@ -33,18 +35,23 @@ The method i implement is the **Prioritization Matrix**
 
 <br/>
 
-This app is made - as its name already say - to specify, what your priorities are (in right order).
-For that, i implemented some code, where you can specify important properties as a list.
-Then, going through a random loop, these properties are shown as pairs, where you can choose only one, which is more of value.
-In the end, you will get an "ordered" list, where the property on top have the most "clicks" and last one the least "clicks".
-Thats how your properties will give a result of priority grid. From most to least important.
-You can make as many headings as you like or need. You can also run your "test" again after reset.
+## What is it about
 
-## How to
+This app is made to specify, what your priorities in specific subject are (i.e. qualities, tasks...).
+For that, i implement some code, where you can specify important properties as a list.
+It will then go through a random loop of these properties, showing them as pairs.
+There you can choose only one, which is more of value. It continue till all properties were meet once.
+In the end, you will get a list of key:value pairs of these properties, ordered descending.
+The property on top have the most "clicks" and last one the least "clicks".
+Thats how your properties will give a result of priority grid. From most to least important.
+You can make as many headings as you like or need or create a new list to prioritize.
+You can also run your "test" again after reset.
+
+## How to use it
 
 here i explain how to use the grid
 
-## Specification
+## Specifications
 
 Download and install VSCode (or other code editor) for local work
 
