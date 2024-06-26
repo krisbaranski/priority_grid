@@ -1,0 +1,38 @@
+{% extends "layout.html" %} {% block main %}
+
+<div class="container intro">
+  <h1 class="text-center my-5">History</h1>
+  {% for title in titles %}
+  <div id="accordion">
+    <div class="text-center">
+      <button
+        class="btn"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapseExample-{{ title.id }}"
+        aria-expanded="false"
+        aria-controls="collapseExample"
+      >
+        <h2 class="example lg">{{ title.title | upper }}</h2>
+      </button>
+
+      {% for item in items_by_title[title.id] %}
+      <div
+        class="collapse"
+        id="collapseExample-{{ title.id }}"
+        data-bs-parent="#accordion"
+      >
+        <ol class="text-center">
+          <li>
+            <span class="example">{{ item.item_name | capitalize }}</span>
+            :
+            <span class="example">{{ item.count }}</span>
+          </li>
+        </ol>
+      </div>
+      {% endfor %}
+    </div>
+    {% endfor %}
+  </div>
+  {% endblock %}
+</div>
