@@ -1,0 +1,37 @@
+{% extends "layout.html" %} {% block main %}
+<div class="container">
+  <h3 class="text-center my-5">Add New Items</h3>
+  <form
+    action="{{ url_for('items', title_id=title.id) }}"
+    method="post"
+    class="m-3"
+  >
+    <input
+      class="mb-3"
+      id="item"
+      name="item"
+      placeholder="Item"
+      required
+      type="text"
+    />
+    <button class="btn btn-primary btn-sm col-auto ms-3" type="submit">
+      Add Item
+    </button>
+  </form>
+  <h2 class="example lg">{{ title.title | upper }}</h2>
+  <h3>Items added:</h3>
+  <ul>
+    {% for item in items %}
+    <li>
+      <span class="example lg">{{ item.item_name | capitalize }}</span>
+    </li>
+    {% endfor %}
+  </ul>
+  <a
+    href="{{ url_for('choose', title_id=title.id) }}"
+    class="btn btn-light btn-lg my-3"
+  >
+    Start Choosing
+  </a>
+</div>
+{% endblock %}

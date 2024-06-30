@@ -1,0 +1,14 @@
+{% extends "layout.html" %} {% block main %}
+<div>
+  <h3>Choose one Item from the Pair</h3>
+  <h1>Choose an Item</h1>
+  <form method="post">
+    <button type="submit" name="selected_item" value="{{ item1.id }}">
+      {{ item1.item }}
+    </button>
+    <button type="submit" name="selected_item" value="{{ item2.id }}">
+      {{ item2.item }}
+    </button>
+  </form>
+</div>
+{% endblock %}

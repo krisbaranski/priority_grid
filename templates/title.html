@@ -1,0 +1,17 @@
+{% extends "layout.html" %} {% block main %}
+<div class="container">
+  <h3 class="text-center my-5">Add New Title</h3>
+  <form action="/title" method="post" class="m-3">
+    <input
+      class="mb-3"
+      name="title"
+      autofocus
+      placeholder="Title"
+      type="text"
+    />
+    <button class="btn btn-primary btn-sm col-auto ms-3" type="submit">
+      Add Title
+    </button>
+  </form>
+</div>
+{% endblock %}

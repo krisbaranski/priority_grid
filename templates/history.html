@@ -1,38 +1,64 @@
 {% extends "layout.html" %} {% block main %}
 
+<script>
+  function deleteTitle(titleId) {
+    if (confirm('Are you sure you want to delete this title and its items?')) {
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = `/delete/${titleId}`;
+      document.body.appendChild(form);
+      form.submit();
+    }
+  }
+</script>
+
 <div class="container intro">
   <h1 class="text-center my-5">History</h1>
   {% for title in titles %}
   <div id="accordion">
     <div class="text-center">
-      <button
-        class="btn"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#collapseExample-{{ title.id }}"
-        aria-expanded="false"
-        aria-controls="collapseExample"
-      >
-        <h2 class="example lg">{{ title.title | upper }}</h2>
-      </button>
+        <button
+          class="btn"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseExample-{{ title.id }}"
+          aria-expanded="false"
+          aria-controls="collapseExample"
+        >
+          <h2 class="example lg">{{ title.title | upper }}</h2>
+        </button>
+
+        <a
+          href="{{ url_for('reset_game') }}"
+          class="btn btn-warning btn-sm col-auto ms-3"
+        >
+          Try Again
+        </a>
+        <a
+          href="#"
+          onclick="deleteTitle({{ title.id }})"
+          class="btn btn-danger btn-sm col-auto ms-3"
+          >Delete</a
+        >
+      </div>
 
       {% for item in items_by_title[title.id] %}
       <div
-        class="collapse"
+        class="collapse text-center"
         id="collapseExample-{{ title.id }}"
         data-bs-parent="#accordion"
       >
-        <ol class="text-center">
+        <ul>
           <li>
             <span class="example">{{ item.item_name | capitalize }}</span>
             :
             <span class="example">{{ item.count }}</span>
           </li>
-        </ol>
+        </ul>
       </div>
       {% endfor %}
     </div>
     {% endfor %}
   </div>
-  {% endblock %}
 </div>
+{% endblock %}
