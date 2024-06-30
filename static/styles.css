@@ -12,10 +12,6 @@ body {
   padding: 0;
 }
 
-.navbar {
-  background-color: #0098be;
-}
-
 /* Preloader */
 #preloader {
   position: fixed;
@@ -45,6 +41,10 @@ body {
   box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 4px;
 }
 
+.navbar {
+  background-color: #0098be;
+}
+
 .navbar-toggler {
   margin-right: 1rem;
 }
@@ -70,6 +70,14 @@ body {
   padding: 10px 15px;
 }
 
+.buttons {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: auto;
+  justify-content: space-between;
+}
+
 ul,
 li {
   margin: 10px;
@@ -88,5 +96,10 @@ li {
   .example,
   span {
     margin: 50px auto;
+  }
+
+  .lg {
+    font-size: 1.1rem;
+    font-weight: 200;
   }
 }
