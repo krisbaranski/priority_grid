@@ -1,20 +1,20 @@
 import os
 
-from cs50 import SQL
-from flask import Flask, flash, jsonify, redirect, render_template, request, session, url_for
+from flask import Flask, flash, redirect, render_template, request, session, url_for
 
-import itertools
+from config import Config
 import random
 import sqlite3
+
 
 # Configure application
 app = Flask(__name__)
 
+# Configure secret key
+app.config.from_object(Config)
+
 # Ensure templates are auto_reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
-
-# Configure CS50 Library to use  SQLite database
-db = SQL("sqlite:///priorities.db")
 
 
 @app.after_request
@@ -32,29 +32,13 @@ def get_db_connection():
     return conn
 
 
-def get_titles_from_db():
-    """Access database for titles"""
-    titles = db.execute("SELECT * FROM titles")
-    return titles
-
-
-def get_items_from_db():
-    """Access database for items"""
-    items = db.execute("SELECT * FROM items")
-    return items
-
-
-def get_counts_from_db():
-    """Get counted items for score"""
-    counts = db.execute("SELECT count FROM items WHERE item_id = ?", item_id)
-    return counts
-
-
-def increment_count(item):
-    """Increment count"""
-    count = db.execute("INSERT OR IGNORE INTO items (count) VALUES (?)", (count))
-    increment_count = db.execute("UPDATE items SET count = count + 1 WHERE item_id = ?", (item_id))
-    return increment_count
+def isalpha_or_space(self):
+    if self == "":
+        return False
+    for char in self:
+        if not (char.isalpha() or char.isspace()):
+            return False
+    return True
 
 
 @app.route("/")
@@ -63,16 +47,23 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/title", methods=["POST"])
+@app.route("/title", methods=["GET", "POST"])
 def title():
     """Add title"""
     if request.method == "POST":
         title = request.form.get("title")
 
-        if not title:
+        conn = get_db_connection()
+        existing_title = conn.execute('SELECT * FROM titles WHERE title = ?', (title,)).fetchone()
+        
+        if existing_title:
+            conn.close()
+            return render_template('error.html', message="Title already exists")
+
+        elif not title:
             return render_template("error.html", message="Missing title")
 
-        elif not title.isalpha():
+        elif not isalpha_or_space(title):
             return render_template("error.html", message="Please input text")
 
         # Insert title
@@ -82,67 +73,143 @@ def title():
         conn.close()
 
         return redirect("/items")
+    
+    else:
+        return render_template("title.html")
 
 
-@app.route("/items", methods=["GET", "POST", "DELETE"])
-def items():
-    """Add title and items to the list"""
-    item = request.form.get["item"].strip().lower()
+@app.route("/items/<int:title_id>", methods=["GET", "POST"])
+def items(title_id):
+    """Add items to the list"""
+    conn = get_db_connection()
+    title = conn.execute("SELECT * FROM titles WHERE title_id = ?", (id,)).fetchone()
+    items = conn.execute("SELECT * FROM items WHERE title_id = ?", (title_id,)).fetchall()
+    conn.close()
+
+    if title is None:
+        return render_template("error.html", message="Title not found")
+    
+    if request.method == "POST":
+        item_name = request.form['item']
+
+        if not item_name:
+            return render_template("error.html", message="Missing item")
+        
+        elif not isalpha_or_space(item_name):
+            return render_template("error.html", message="Please input text")
+        
+        conn = get_db_connection()
+        existing_item = conn.execute("SELECT * FROM items WHERE title_id = ? AND item_name = ?", (title_id, item_name)).fetchone()
+        
+        if existing_item:
+            conn.close()
+            return render_template('error.html', message="Item already exists")
+
+        conn = get_db_connection()
+        conn.execute("INSERT INTO items (title_id, item_name) VALUES (?, ?)", (title_id, item_name))
+        conn.commit()
+        conn.close()
+
+        return redirect(url_for('items', title_id=title_id))
+    
+    return render_template("/items", title=title, items=items)
+
+
+@app.route("/choose/<int:title_id>", methods=["GET", "POST"])
+def choose(title_id):
+    if 'game_data' not in session:
+        conn = get_db_connection()
+        items = conn.execute("SELECT * FROM items WHERE title_id = ?", (title_id,)).fetchall()
+        conn.close()
+        
+        item_pairs = [(items[i]['id'], items[j]['id']) for i in range(len(items)) for j in range(i+1, len(items))]
+        random.shuffle(item_pairs)
+
+        session['game_data'] = {
+            'title_id': title_id,
+            'item_pairs': item_pairs,
+            'current_pair': 0,
+            'count': {item['item_id']: 0 for item in items}
+        }
+
+    game_data = session['game_data']
     
     if request.method == 'POST':
+        selected_item = int(request.form['selected_item'])
+        game_data['count'][selected_item] += 1
+        game_data['current_pair'] += 1
+        
+        if game_data['current_pair'] >= len(game_data['item_pairs']):
+            return redirect(url_for('results'))
 
-        if not item:
-            return render_template("error.html", message="Missing item")
-        if not item.isalpha():
-            return render_template("error.html", message="Input text, no digits or special symbols")
+        session['game_data'] = game_data
 
-        db.execute("INSERT OR IGNORE INTO items (item_name) VALUES (?)", item_name)
+    current_pair = game_data['item_pairs'][game_data['current_pair']]
+    conn = get_db_connection()
+    item1 = conn.execute('SELECT * FROM items WHERE id = ?', (current_pair[0],)).fetchone()
+    item2 = conn.execute('SELECT * FROM items WHERE id = ?', (current_pair[1],)).fetchone()
+    conn.close()
 
-        return redirect("/items")
-
-    elif request.method == "DELETE":
-        delete = request.form.get("delete")
-        db.execute("DELETE FROM items WHERE item_id = ?", item_id)
-
-        return render_template("items.html", title=title, items=items)
-
-    else:
-        titles = get_titles_from_db()
-        items = get_items_from_db()
-
-        return render_template("items.html", title=title, items=items)
+    return render_template('choose.html', item1=item1, item2=item2)
 
 
-@app.route("/choose", methods=['GET', 'POST'])
-def choose():
+@app.route("/result/<int:title_id>")
+def result():
+    game_data = session.pop('game_data', None)
+    if not game_data:
+        return redirect(url_for('index'))
 
-    items = get_items_from_db()
-    pairs = list(itertools.product(items, repeat=2))
-    random.shuffle(pairs)
-    counts = get_counts_from_db()
+    conn = get_db_connection()
+    title = conn.execute("SELECT title FROM titles WHERE id = ?", (game_data['title_id'],)).fetchone()
+    items = conn.execute('SELECT * FROM items WHERE title_id = ?', (game_data['title_id'],)).fetchall()
+    conn.close()
+    
+    sorted_items = sorted(items, key=lambda item: game_data['count'][item['item_id']], reverse=True)
+
+    return render_template('results.html', sorted_items=sorted_items, title=title)
+
+
+@app.route('/update_title/<int:title_id>', methods=('GET', 'POST'))
+def update_title(title_id):
+    conn = get_db_connection()
+    title = conn.execute('SELECT * FROM titles WHERE id = ?', (title_id,)).fetchone()
 
     if request.method == 'POST':
-        chosen_item = int(request.form['chosen_item'])
-        increment_count(chosen_item)
-        return redirect(url_for('choose'))
-    pair = pairs.pop(0) if pairs else None
-    return render_template("choose.html", pair=pair, counts=counts)
+        new_title = request.form['title']
+        conn.execute('UPDATE titles SET title = ? WHERE id = ?', (new_title, title_id))
+        conn.commit()
+        conn.close()
+        return redirect(url_for('items'))
+
+    conn.close()
+    return render_template('title.html', title=title)
 
 
-@app.route("/result")
-def result():
-    title = db.execute("SELECT title from titles WHERE id = ?", id)
-    counts = get_counts_from_db()
-    sorted_counts = sorted(counts.items(), key=lambda item: item[1], reverse=True)
-    return render_template("result.html", title=title, sorted_counts=sorted_counts)
+@app.route('/reset_game')
+def reset_game():
+    if 'game_data' in session:
+        title_id = session['game_data']['title_id']
+        session.pop('game_data')
+        return redirect(url_for('choose', title_id=title_id))
+    return redirect(url_for('index'))
+
+
+@app.route("/delete/<int:title_id>", methods=["POST"])
+def delete(title_id):
+    conn = get_db_connection()
+    conn.execute("DELETE FROM items WHERE title_id = ?", (title_id,))
+    conn.execute("DELETE FROM titles WHERE id = ?", (title_id,))
+    conn.commit()
+    conn.close()
+    return redirect(url_for('index'))
 
 
 @app.route("/history", methods=["GET"])
 def history():
     """Show history of priorities"""
     conn = get_db_connection()
-    titles = conn.execute("SELECT * FROM titles").fetchall()
-    items = conn.execute("SELECT * FROM items").fetchall()
+    titles = conn.execute("SELECT * FROM titles ORDER BY id DESC").fetchall()
+    items = conn.execute("SELECT * FROM items ORDER BY count DESC").fetchall()
     conn.close()
 
     items_by_title = {}
@@ -150,7 +217,6 @@ def history():
         items_by_title[title['id']] = []
 
     for item in items:
-        # items_by_title[item['title_id']].append(item['item'])
         items_by_title[item['title_id']].append({'id': item['item_id'], 'item_name': item['item_name'], 'count': item['count']})
 
     # Show rendered history page with all transactions
