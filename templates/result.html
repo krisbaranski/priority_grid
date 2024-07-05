@@ -1,16 +1,18 @@
 {% extends "layout.html" %} {% block main %}
-<div class="container">
-  <h1>Final Counts</h1>
-  <h2 class="example lg">{{ title.title | upper }}</h2>
-  <ul>
+<div class="container intro">
+  <h2 class="text-center mt-5">Result</h2>
+  <h3 class="text-center mt-5">
+    TITLE:<span class="example lg mb-5">{{ title.title | upper }}</span>
+  </h3>
+  <ul class="text-center my-3">
     {% for item in sorted_items %}
-    <li>{{ item.item }} (Count: {{ game_data['counts'][item.id] }})</li>
+      <li>
+        <span class="example">{{ item.item_name | capitalize }}</span>
+        :
+        <span class="example">{{ item.count }}</span>
+      </li>
+    </li>
     {% endfor %}
   </ul>
-  <div class="text-center my-3">
-    <a href="{{ url_for('/') }}" class="btn btn-outline-light btn-lg my-5"
-      >Go Home</a
-    >
-  </div>
 </div>
 {% endblock %}

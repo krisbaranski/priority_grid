@@ -1,4 +1,10 @@
 {% extends "layout.html" %} {% block main %}
+<div id="preloader">
+  <img
+    src="{{ url_for('static', filename='preloader.png') }}"
+    alt="Loading..."
+  />
+</div>
 <div class="intro">
   <div class="text-center my-5">
     <h1 class="display-1 py-3">Welcome</h1>
@@ -107,4 +113,28 @@
     >
   </div>
 </div>
+
+
+<script>
+  window.addEventListener("load", function () {
+    const preloader = document.getElementById("preloader")
+    const content = document.getElementById("content")
+
+    // Show preloader and animate 3 seconds
+    setTimeout(function () {
+      // Fade out preloader
+      preloader.style.opacity = "0"
+
+      setTimeout(function () {
+        // Hide preloader after fading out
+        preloader.style.display = "none"
+
+        // Show main content
+        content.style.content = "block"
+        // Wait for fade out transition to complete
+      }, 1000)
+      // Display preloader for 2 seconds
+    }, 1000)
+  })
+</script>
 {% endblock %}

@@ -1,13 +1,24 @@
 {% extends "layout.html" %} {% block main %}
 <div>
-  <h3>Choose one Item from the Pair</h3>
-  <h1>Choose an Item</h1>
+  <h3 class="mt-5 mb-2">Choose one Item</h3>
+  <p class="mb-5">continue until you see results...</p>
   <form method="post">
-    <button type="submit" name="selected_item" value="{{ item1.id }}">
-      {{ item1.item }}
+    <button
+      class="btn btn-outline-light lg mx-3"
+      type="submit"
+      name="selected_item"
+      value="{{ item1.id }}"
+    >
+      {{ item1.item_name }}
     </button>
-    <button type="submit" name="selected_item" value="{{ item2.id }}">
-      {{ item2.item }}
+    OR
+    <button
+      class="btn btn-outline-light lg mx-3"
+      type="submit"
+      name="selected_item"
+      value="{{ item2.id }}"
+    >
+      {{ item2.item_name }}
     </button>
   </form>
 </div>

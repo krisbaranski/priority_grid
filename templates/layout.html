@@ -30,13 +30,6 @@
   </head>
 
   <body>
-    <div id="preloader">
-      <img
-        src="{{ url_for('static', filename='preloader.png') }}"
-        alt="Loading..."
-      />
-    </div>
-
     <div class="container" id="content">
       <nav class="navbar navbar-expand-md sticky-top navbar-dark">
         <div class="container-fluid">
@@ -73,40 +66,9 @@
         </div>
       </nav>
 
-      {% if get_flashed_messages() %}
-      <header>
-        <div class="alert alert-primary mb-0 text-center" role="alert">
-          {{ get_flashed_messages() | join(" ") }}
-        </div>
-      </header>
-      {% endif %}
-
       <main class="container py-5 text-center">
         {% block main %}{% endblock %}
       </main>
     </div>
-
-    <script>
-      window.addEventListener('load', function () {
-        const preloader = document.getElementById('preloader');
-        const content = document.getElementById('content');
-
-        // Show preloader and animate 3 seconds
-        setTimeout(function () {
-          // Fade out preloader
-          preloader.style.opacity = '0';
-
-          setTimeout(function () {
-            // Hide preloader after fading out
-            preloader.style.display = 'none';
-
-            // Show main content
-            content.style.content = 'block';
-            // Wait for fade out transition to complete
-          }, 1000);
-          // Display preloader for 2 seconds
-        }, 1000);
-      });
-    </script>
   </body>
 </html>

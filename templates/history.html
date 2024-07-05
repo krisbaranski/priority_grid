@@ -10,6 +10,16 @@
       form.submit();
     }
   }
+  
+  function tryAgain(titleId) {
+    if (confirm('Are you sure you want to try again?')) {
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = `/reset_game/${titleId}`;
+      document.body.appendChild(form);
+      form.submit();
+    }
+  }
 </script>
 
 <div class="container intro">
@@ -30,6 +40,7 @@
 
         <a
           href="{{ url_for('reset_game') }}"
+          onclick="tryAgain({{ title.id }})"
           class="btn btn-warning btn-sm col-auto ms-3"
         >
           Try Again
