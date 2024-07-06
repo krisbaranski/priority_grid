@@ -1,15 +1,14 @@
 {% extends "layout.html" %} {% block main %}
 <div class="container intro">
   <h2 class="text-center mt-5">Result</h2>
-  <h3 class="text-center mt-5">
+  <h3 class="text-center my-5">
     TITLE:<span class="example lg mb-5">{{ title.title | upper }}</span>
   </h3>
   <ul class="text-center my-3">
     {% for item in sorted_items %}
-      <li>
-        <span class="example">{{ item.item_name | capitalize }}</span>
-        :
-        <span class="example">{{ item.count }}</span>
+      <li class="row justify-content-center text-center my-0">
+        <span class="col-6 example">{{ item.item_name | capitalize }}</span>
+        <span class="col-2 col-sm-2 example">{{ item.count }}</span>
       </li>
     </li>
     {% endfor %}

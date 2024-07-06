@@ -1,4 +1,17 @@
 {% extends "layout.html" %} {% block main %}
+
+<script>
+  function deleteItem(titleId) {
+    if (confirm('Are you sure you want to delete this item?')) {
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = `/delete_item/${titleId}`;
+      document.body.appendChild(form);
+      form.submit();
+    }
+  }
+</script>
+
 <div class="container intro">
   <h2 class="text-center mt-5">
     TITLE:<span class="example lg">{{ title.title | upper }}</span>
@@ -11,7 +24,7 @@
     class="text-center my-3"
   >
     <input
-      class="mb-3"
+      class="form-control mx-auto w-auto mb-3"
       id="item"
       name="item"
       placeholder="Item"
@@ -24,10 +37,16 @@
     </button>
   </form>
   <br />
-  <div class="text-center my-3">
+  <div class="text-center my-5">
     {% for item in items %}
-    <li class="text-center my-3">
-      <span class="example">{{ item.item_name | capitalize }}</span>
+    <li class="row justify-content-center text-center my-0">
+      <span class="col-7 example">{{ item.item_name | capitalize }}</span>
+      <a
+        href="#"
+        onclick="deleteItem({{ item.id }})"
+        class="col-3 col-sm-2 btn btn-danger btn-sm align-self-center"
+        >Delete</a
+      >
     </li>
     {% endfor %}
   </div>
