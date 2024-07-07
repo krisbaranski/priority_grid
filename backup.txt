@@ -1,0 +1,14 @@
+CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, username TEXT NOT NULL, hash TEXT NOT NULL);
+
+CREATE UNIQUE INDEX username ON users (username);
+
+CREATE TABLE `titles` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `title` TEXT NOT NULL UNIQUE, `user_id` INTEGER NOT NULL, FOREIGN KEY (`user_id`) REFERENCES users (`id`));
+CREATE TABLE `titles` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `title` TEXT NOT NULL UNIQUE);
+
+CREATE TABLE "items" (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `title_id` INTEGER, `item_name` TEXT NOT NULL, `count` NUMBER DEFAULT 0, FOREIGN KEY (`title_id`) REFERENCES titles (`id`));
+
+DELETE FROM titles;
+DELETE FROM sqlite_sequence WHERE name='titles';
+
+DELETE FROM items;
+DELETE FROM sqlite_sequence WHERE name='items';
