@@ -118,8 +118,8 @@ You can also install gunicorn for local testing
 ```
 - import of dependencies (Flask, os, config, random, sqlite3)
 - define functions for:
-    : database,
-    :
+    > database,
+    > routes
 ```
 
 #### config.py
@@ -146,6 +146,7 @@ Database tables for storing titles and corresponding items
 
 ```
 basic site, fully responsive with title, menu and jinja main container template
+bootstrap plugin for forms, buttons, layout, responsive menu
 ```
 
 #### - index.html
@@ -157,10 +158,66 @@ home site with introduction, rules and link to create new grid
 #### - title.html
 
 ```
-
+start of priority grid, with title as header for list of items
+after submit redirecting to items
 ```
 
-#### requirements.txt
+#### - items.html
+
+```
+here are defined items, list of priorities
+option to delete wrong item
+button to continue to choose site
+```
+
+#### - choose.html
+
+```
+here two buttons are displayed which represent one of items
+written logic to count points for chosen one of items
+items "connect to each other as many times as on presented grid"
+when all possible connnections finished, redirect to result site
+```
+
+#### - result.html
+
+```
+after all calculation from choose session, title and its items are displayed with name and count of points from "game"
+items are sorted on count from highest descending
+```
+
+#### - history.html
+
+```
+documentation for all titles and corresponding items
+sorted from newest to oldest
+there is option to try choosing items again
+or delete explicit title and its items
+```
+
+#### - error.html
+
+```
+if errors occur, user is redirected to this site
+error is explained
+button to go back one page to correct error
+```
+
+### static/
+
+#### - styles.css
+
+```
+extended style of components
+```
+
+#### - assets/
+
+```
+images used in the app as logo
+```
+
+### requirements.txt
 
 ```
 blinker==1.8.2
