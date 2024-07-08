@@ -10,9 +10,13 @@
 
 #### Video Demo:
 
+#
+
 ## Tech Stack
 
 #### Flask, Python, JavaScript, SQLite3, HTML, CSS, Bootstrap
+
+#
 
 ## Introduction:
 
@@ -35,25 +39,45 @@ The method i implement is the **Prioritization Matrix**
 
 <br/>
 
-## What is it about
+## What is it about and how to use it
 
-This app is made to specify, what your priorities in specific subject are (i.e. qualities, tasks...).
-For that, i implement some code, where you can specify important properties as a list.
-It will then go through a random loop of these properties, showing them as pairs.
-There you can choose only one, which is more of value. It continue till all properties were meet once.
-In the end, you will get a list of key:value pairs of these properties, ordered descending.
-The property on top have the most "clicks" and last one the least "clicks".
+#
+
+#### Explanation
+
+This app is made to specify, what your priorities in specific subject are (i.e. qualities, tasks, todos ...).
+Often when we have some priorities, it doesn't come obvious what is their right prior order. One can do it manually.
+It will take some work to write things on paper, count them, replace items... So, as you can see, its time consuming.
+Therefore here you have an easy web app to create a list and order your items. With a few clicks you will get your list prioritized.
+In implement web app you can specify important properties as a list.
+Then the app go through a random loop of those properties, showing them as pairs.
+There you can choose only one, which is more of value. It continue until all properties were meet once.
+In the end, you get a result as a list of key:value pairs of those properties, ordered descending.
+The property on top have the most "points" and last one the least or no "points".
 Thats how your properties will give a result of priority grid. From most to least important.
-You can make as many headings as you like or need or create a new list to prioritize.
-You can also run your "test" again after reset.
+You can make as many headings as you like and you can create a new list to prioritize.
+You can also run your "matrix" again after reset.
+Consider that number of your items will give multiple pairs i.e. 6 items = 15 possible pairs, 10 items = 45. So it can still take some time to figure out.
 
-## How to use it
+#
 
-here i explain how to use the grid
+#### Rules
+
+1. give a title to your list of priority grid items, i.e.
+   `Qualities`
+2. create a list of items to work with, i.e.
+   `Strong`
+   `Fast`
+   `Something`
+   `...`
+3. now you get pairs of items. Choose only one of them, which is more valuable for you
+   `Strong` OR `Fast`
+4. those pairs will continue until all possible combinations are shown (i.e. 6 items = 15 possible pairs)
+5. when finished, you will get a list of your items sorted from most for least important
 
 ## Specifications
 
-Download and install VSCode (or other code editor) for local work
+Download and install VSCode (or code editor of your choice) for local work
 
 Install python3, to check current version:
 `python3 --version`
@@ -71,18 +95,113 @@ Install flask:
 `pip3 install flask`
 
 Start local server to see the development in browser (localhost:5000):
-`flask run`
+`flask run` or
+`python3 app.py`
 
-## Steps of building app
+You can also install gunicorn for local testing
+`pip install gunicorn`
 
-- Flask basic files ( app.py, helpers.py, /templates, /static, /assets, styles.css)
+## Build up
+
+```
+- Flask basic files ( app.py, /templates, /static, /assets, styles.css)
 - Preloader animation with logo on layout page (CSS, JavaScript)
+- Introduction and "rules of game" on index site
 - Bootstrap responsive navigation menu, buttons, layout, fonts, lists
-- SQLite3 tables to store data
+- SQLite3 tables to store data in db (priorities.db)
+- Python implementation of choosing "game"
+- History of your priorities
+- Possibility to add, change, delete grids titles and/or items
+- Config file for generating secret_key
 -
+```
 
-## Some stuff
+# Structure
 
-I hope it can help you and make your priorities work for you!
+### app.py
+
+```
+- import of dependencies (Flask, os, config, random, sqlite3)
+- define functions for:
+    : database,
+    :
+```
+
+#### config.py
+
+```
+configure automatically generated secret_key
+```
+
+#### backup.txt
+
+```
+sqlite3 commands to create and delete tables
+```
+
+#### priorities.db
+
+```
+Database tables for storing titles and corresponding items
+```
+
+### templates/
+
+#### - layout.html
+
+```
+basic site, fully responsive with title, menu and jinja main container template
+```
+
+#### - index.html
+
+```
+home site with introduction, rules and link to create new grid
+```
+
+#### - title.html
+
+```
+
+```
+
+#### requirements.txt
+
+```
+blinker==1.8.2
+click==8.1.7
+colorama==0.4.6
+cs50==9.3.4
+cssbeautifier==1.15.1
+djlint==1.34.1
+EditorConfig==0.12.4
+Flask==3.0.3
+gunicorn==22.0.0
+html-tag-names==0.1.2
+html-void-elements==0.1.0
+importlib_metadata==7.1.0
+itsdangerous==2.2.0
+Jinja2==3.1.4
+jsbeautifier==1.15.1
+json5==0.9.25
+MarkupSafe==2.1.5
+packaging==24.1
+pathspec==0.12.1
+PyYAML==6.0.1
+regex==2023.12.25
+six==1.16.0
+SQLAlchemy==2.0.30
+sqlparse==0.5.0
+termcolor==2.4.0
+tomli==2.0.1
+tqdm==4.66.4
+typing_extensions==4.12.2
+Werkzeug==3.0.3
+zipp==3.19.2
+```
+
+#
+
+#### This tool made my life a lot easier, i hope it will do same for you
 
 ### Enjoy!
