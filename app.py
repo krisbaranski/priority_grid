@@ -46,7 +46,7 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/title", methods=["POST"])
+@app.route("/title", methods=["GET", "POST"])
 def title():
     """Add title"""
     if request.method == "POST":
@@ -74,13 +74,13 @@ def title():
 
         return redirect(f"/items/{title_id}")
     
-    # else:
-    #     conn = get_db_connection()
-    #     title_id = conn.execute("SELECT id FROM titles")
-    #     conn.commit()
-    #     conn.close()
+    else:
+        conn = get_db_connection()
+        title_id = conn.execute("SELECT id FROM titles")
+        conn.commit()
+        conn.close()
 
-    #     return render_template("title.html")
+        return render_template("title.html")
 
 
 @app.route("/items/<int:title_id>", methods=["GET", "POST"])
