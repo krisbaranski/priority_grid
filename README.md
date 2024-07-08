@@ -39,8 +39,6 @@ The method i implement is the **Prioritization Matrix**
 
 ## What is it about and how to use it
 
-##
-
 #### Explanation
 
 This app is made to specify, what your priorities in specific subject are (i.e. qualities, tasks, todos ...).
@@ -59,8 +57,6 @@ Thats how your properties will give a result of priority grid. From most to leas
 You can make as many headings as you like and you can create a new list to prioritize.
 You can also run your "matrix" again after reset.
 Consider that number of your items will give multiple pairs i.e. 6 items = 15 possible pairs, 10 items = 45. So it can still take some time to figure out.
-
-##
 
 #### Rules
 
