@@ -2,15 +2,13 @@
 
 <img src="https://github.com/krisbaranski/priority_grid/blob/main/static/assets/priority.png" alt="Priority Grid Logo" width="150" height="150">
 
-##
-
 # Priority Grid
 
 </div>
 
 #### Video Demo:
 
-##
+###
 
 ## Tech Stack
 
@@ -46,15 +44,18 @@ The method i implement is the **Prioritization Matrix**
 #### Explanation
 
 This app is made to specify, what your priorities in specific subject are (i.e. qualities, tasks, todos ...).
-Often when we have some priorities, it doesn't come obvious what is their right prior order. One can do it manually.
-It will take some work to write things on paper, count them, replace items... So, as you can see, its time consuming.
+Often when we have some priorities, it doesn't come obvious what is their right prior order.
+
+One can do it manually. It will take some work to write things on paper, count them, replace items... So, as you can see, its time consuming.
 Therefore here you have an easy web app to create a list and order your items. With a few clicks you will get your list prioritized.
-In implement web app you can specify important properties as a list.
+
+In this app you can specify important properties as a list.
 Then the app go through a random loop of those properties, showing them as pairs.
 There you can choose only one, which is more of value. It continue until all properties were meet once.
 In the end, you get a result as a list of key:value pairs of those properties, ordered descending.
 The property on top have the most "points" and last one the least or no "points".
 Thats how your properties will give a result of priority grid. From most to least important.
+
 You can make as many headings as you like and you can create a new list to prioritize.
 You can also run your "matrix" again after reset.
 Consider that number of your items will give multiple pairs i.e. 6 items = 15 possible pairs, 10 items = 45. So it can still take some time to figure out.
@@ -73,7 +74,9 @@ Consider that number of your items will give multiple pairs i.e. 6 items = 15 po
 3. now you get pairs of items. Choose only one of them, which is more valuable for you
    `Strong` OR `Fast`
 4. those pairs will continue until all possible combinations are shown (i.e. 6 items = 15 possible pairs)
-5. when finished, you will get a list of your items sorted from most for least important
+5. when finished, you will be redirected to result site where you get a list of your items sorted from most for least important
+
+###
 
 ## Specifications
 
