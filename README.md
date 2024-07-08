@@ -8,13 +8,9 @@
 
 #### Video Demo:
 
-###
-
 ## Tech Stack
 
 #### Flask, Python, Jinja, SQLite3, HTML, CSS, Bootstrap, JavaScript
-
-##
 
 ## Introduction:
 
