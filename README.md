@@ -70,7 +70,7 @@ Consider that number of your items will give multiple pairs i.e. 6 items = 15 po
 
 ###
 
-## Specifications
+## Install ide, tools and dependencies
 
 Download and install VSCode (or code editor of your choice) for local work
 
@@ -96,18 +96,20 @@ Start local server to see the development in browser (localhost:5000):
 You can also install gunicorn for local testing
 `pip install gunicorn`
 
-## Build up
+# Build up
 
 ```
-- Flask basic files ( app.py, /templates, /static, /assets, styles.css)
-- Preloader animation with logo on layout page (CSS, JavaScript)
-- Introduction and "rules of game" on index site
+- Flask basic files ( app.py, /templates, /static/assets, styles.css)
+- Preloader animation with logo on index page (CSS, JavaScript)
+- Introduction and "rules of game" on index site as accordion
 - Bootstrap responsive navigation menu, buttons, layout, fonts, lists
 - SQLite3 tables to store data in db (priorities.db)
 - Python implementation of choosing "game"
 - History of your priorities
 - Possibility to add, change, delete grids titles and/or items
 - Config file for generating secret_key
+- Checking functionality
+- Debugging, fixing bugs
 -
 ```
 
