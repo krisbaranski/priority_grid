@@ -2,7 +2,7 @@
 
 <img src="https://github.com/krisbaranski/priority_grid/blob/main/static/assets/priority.png" alt="Priority Grid Logo" width="150" height="150">
 
-#
+##
 
 # Priority Grid
 
@@ -10,13 +10,13 @@
 
 #### Video Demo:
 
-#
+##
 
 ## Tech Stack
 
-#### Flask, Python, JavaScript, SQLite3, HTML, CSS, Bootstrap
+#### Flask, Python, Jinja, SQLite3, HTML, CSS, Bootstrap, JavaScript
 
-#
+##
 
 ## Introduction:
 
@@ -41,7 +41,7 @@ The method i implement is the **Prioritization Matrix**
 
 ## What is it about and how to use it
 
-#
+##
 
 #### Explanation
 
@@ -59,7 +59,7 @@ You can make as many headings as you like and you can create a new list to prior
 You can also run your "matrix" again after reset.
 Consider that number of your items will give multiple pairs i.e. 6 items = 15 possible pairs, 10 items = 45. So it can still take some time to figure out.
 
-#
+##
 
 #### Rules
 
@@ -200,7 +200,7 @@ Werkzeug==3.0.3
 zipp==3.19.2
 ```
 
-#
+##
 
 #### This tool made my life a lot easier, i hope it will do same for you
 
