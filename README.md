@@ -17,13 +17,15 @@
 Prioritizing methods utilizes the principles of importance and urgency to organize priorities and workload.
 Here are examples of approach:
 
-- ABC analysis,
-- Pareto analysis,
-- Eisenhower Box...
+- ABC analysis
+- Pareto analysis
+- Eisenhower Box
+- Priority Matrix
+- ...
 
 For more information follow this [link](https://en.wikipedia.org/wiki/Time_management#The_Eisenhower_Method)
 
-The method i implement is the **Prioritization Matrix**
+The method i implement is the **Prioritization Matrix** and it looks like image below
 
 <div align="center">
 
@@ -33,18 +35,18 @@ The method i implement is the **Prioritization Matrix**
 
 <br/>
 
-## What is it about and how to use it
+## What is it about
 
 #### Explanation
 
-This app is made to specify, what your priorities in specific subject are (i.e. qualities, tasks, todos ...).
-Often when we have some priorities, it doesn't come obvious what is their right prior order.
+This apps purpose is to specify the easy way, what your priorities in particular subject are (i.e. qualities, tasks, todos ...).
+When it comes that we have some subject to prioritize, it doesn't become obvious what is their right order. This app you clearify important properties as a list.
 
-One can do it manually. It will take some work to write things on paper, count them, replace items... So, as you can see, its time consuming.
-Therefore here you have an easy web app to create a list and order your items. With a few clicks you will get your list prioritized.
+One can do it manually, as you can see on image above. It will take some work to fill all items on paper, compare and count them, replace items order. So, as you can see, its time consuming.
 
-In this app you can specify important properties as a list.
-Then the app go through a random loop of those properties, showing them as pairs.
+Therefore this app is an easy tool to create a list and order your items. With a few clicks you will get your list prioritized.
+
+The app go through a random loop of properties, showing them as pairs.
 There you can choose only one, which is more of value. It continue until all properties were meet once.
 In the end, you get a result as a list of key:value pairs of those properties, ordered descending.
 The property on top have the most "points" and last one the least or no "points".
@@ -54,7 +56,9 @@ You can make as many headings as you like and you can create a new list to prior
 You can also run your "matrix" again after reset.
 Consider that number of your items will give multiple pairs i.e. 6 items = 15 possible pairs, 10 items = 45. So it can still take some time to figure out.
 
-#### Rules
+## How to use it
+
+#### Follow this steps
 
 1. give a title to your list of priority grid items, i.e.
    `Qualities`
@@ -63,65 +67,70 @@ Consider that number of your items will give multiple pairs i.e. 6 items = 15 po
    `Fast`
    `Something`
    `...`
-3. now you get pairs of items. Choose only one of them, which is more valuable for you
+3. now you get pairs of items. Choose only one of them, which is more valuable for you i.e.:
    `Strong` OR `Fast`
 4. those pairs will continue until all possible combinations are shown (i.e. 6 items = 15 possible pairs)
-5. when finished, you will be redirected to result site where you get a list of your items sorted from most for least important
+5. when finished, you will be redirected to result page where you get a list of your items sorted from most for least important
 
 ###
 
 ## Install ide, tools and dependencies
 
-Download and install VSCode (or code editor of your choice) for local work
+Steps of preperation to work with project:
 
-Install python3, to check current version:
-`python3 --version`
+- Download and install VSCode (or code editor of your choice) for local work
 
-Inside of the app directory, install virtual environment:
-`pip3 install virtualenv`
+- Install python3, to check current version:
+  `python3 --version`
 
-To use flask run command, install virtual env:
-`virtualenv env`
+- Inside of the app directory, install virtual environment:
+  `pip3 install virtualenv`
 
-Start using virtual env:
-`source env/bin/activate`
+- To use flask run command, install virtual env:
+  `virtualenv env`
 
-Install flask:
-`pip3 install flask`
+- Start using virtual env:
+  `source env/bin/activate`
 
-Start local server to see the development in browser (localhost:5000):
-`flask run` or
-`python3 app.py`
+- Install flask:
+  `pip3 install flask`
 
-You can also install gunicorn for local testing
-`pip install gunicorn`
+- Start local server to see the development in browser (localhost:5000):
+  `flask run` or
+  `python3 app.py`
 
-# Build up
+- You can also install gunicorn for local testing
+  `pip install gunicorn`
+
+## Build up
 
 ```
 - Flask basic files ( app.py, /templates, /static/assets, styles.css)
 - Preloader animation with logo on index page (CSS, JavaScript)
-- Introduction and "rules of game" on index site as accordion
+- Introduction and "rules of game" on index site as accordion (Bootstrap)
 - Bootstrap responsive navigation menu, buttons, layout, fonts, lists
 - SQLite3 tables to store data in db (priorities.db)
 - Python implementation of choosing "game"
-- History of your priorities
+- Access to database in history to show all of your priority results
 - Possibility to add, change, delete grids titles and/or items
 - Config file for generating secret_key
-- Checking functionality
-- Debugging, fixing bugs
+- Debugging, checking functionality, fixing bugs
 -
 ```
 
-# Structure
+## File structure
 
-### app.py
+#### app.py
 
 ```
 - import of dependencies (Flask, os, config, random, sqlite3)
 - define functions for:
-    > database,
+    > database
+    > error check
     > routes
+    > delete
+    > reset
+    > result/history
 ```
 
 #### config.py
@@ -133,7 +142,7 @@ configure automatically generated secret_key
 #### backup.txt
 
 ```
-sqlite3 commands to create and delete tables
+sqlite3 commands to create and delete database tables
 ```
 
 #### priorities.db
@@ -142,84 +151,7 @@ sqlite3 commands to create and delete tables
 Database tables for storing titles and corresponding items
 ```
 
-### templates/
-
-#### - layout.html
-
-```
-basic site, fully responsive with title, menu and jinja main container template
-bootstrap plugin for forms, buttons, layout, responsive menu
-```
-
-#### - index.html
-
-```
-home site with introduction, rules and link to create new grid
-```
-
-#### - title.html
-
-```
-start of priority grid, with title as header for list of items
-after submit redirecting to items
-```
-
-#### - items.html
-
-```
-here are defined items, list of priorities
-option to delete wrong item
-button to continue to choose site
-```
-
-#### - choose.html
-
-```
-here two buttons are displayed which represent one of items
-written logic to count points for chosen one of items
-items "connect to each other as many times as on presented grid"
-when all possible connnections finished, redirect to result site
-```
-
-#### - result.html
-
-```
-after all calculation from choose session, title and its items are displayed with name and count of points from "game"
-items are sorted on count from highest descending
-```
-
-#### - history.html
-
-```
-documentation for all titles and corresponding items
-sorted from newest to oldest
-there is option to try choosing items again
-or delete explicit title and its items
-```
-
-#### - error.html
-
-```
-if errors occur, user is redirected to this site
-error is explained
-button to go back one page to correct error
-```
-
-### static/
-
-#### - styles.css
-
-```
-extended style of components
-```
-
-#### - assets/
-
-```
-images used in the app as logo
-```
-
-### requirements.txt
+#### requirements.txt
 
 ```
 blinker==1.8.2
@@ -254,7 +186,89 @@ Werkzeug==3.0.3
 zipp==3.19.2
 ```
 
-##
+### templates/
+
+#### - layout.html
+
+```
+basic page, fully responsive with title, menu and jinja main container template
+bootstrap plugin for forms, buttons, layout, responsive menu
+```
+
+#### - index.html
+
+```
+homeage with introduction, rules and link to create new grid
+preloader with app logo
+```
+
+#### - title.html
+
+```
+start of priority grid, with title as header for list of items
+after submit redirecting to items
+```
+
+#### - items.html
+
+```
+here are defined items, list of priorities
+option to delete wrong item
+button to continue to choose page
+```
+
+#### - choose.html
+
+```
+here two buttons are displayed which represent one of items
+written logic to count points for chosen one of items
+items are shown and comapred as many times as all possible connections are made
+after finish comparison, redirect to result page
+```
+
+#### - result.html
+
+```
+after all calculation from choose session, title and corresponding items are displayed with name and count of points from "chosing game"
+items are sorted on count from highest descending
+```
+
+#### - history.html
+
+```
+documentation for all titles and corresponding items
+sorted from newest to oldest
+option to try choosing items again
+option to delete explicit title and its items
+```
+
+#### - error.html
+
+```
+if errors occur, user is redirected to this page
+error is explained
+button to go one page  back to correct error
+```
+
+### static/
+
+#### - styles.css
+
+```
+extended style of components
+```
+
+#### - assets/
+
+```
+images used in the app as logo
+```
+
+## To Do
+
+- register and login user to make private lists
+- create tables for user data storage
+- reset function to start chosing again (not fixed yet)
 
 #### This tool made my life a lot easier, i hope it will do same for you
 
