@@ -138,6 +138,8 @@ Steps of preperation to work with project:
     > database
     > error check
     > routes
+    > login/register functionality
+    > history of user
     > reset
     > delete item
     > delete title and items
