@@ -10,6 +10,10 @@
 
 [video demo on youtube](https://youtu.be/Gg4U7FoXok8)
 
+#### Link to App online:
+
+[priority-grid.com](https://priority-grid.com)
+
 ## Tech Stack
 
 #### Flask, Python, Jinja, SQLite3, HTML, CSS, Bootstrap, JavaScript
@@ -120,6 +124,8 @@ Steps of preperation to work with project:
 - Possibility to add, change, delete grids titles and/or items
 - Config file for generating secret_key
 - Debugging, checking functionality, fixing bugs
+- Add login and register pages
+- Update history for individual user
 ```
 
 ## File structure
@@ -170,10 +176,23 @@ basic page, fully responsive with title, menu and jinja main container template
 bootstrap plugin for forms, buttons, layout, responsive menu
 ```
 
+#### - login.html
+
+```
+login page with inputs for username and password
+```
+
+#### - register.html
+
+```
+registration page with input for username, password and confirmation field
+```
+
 #### - index.html
 
 ```
-homeage with introduction, rules and link to create new grid
+after registration and/or login redirect here
+homepage with introduction, rules and link to create new grid
 preloader with app logo
 ```
 
@@ -212,6 +231,7 @@ items are sorted on count from highest descending
 #### - history.html
 
 ```
+for logged in user
 documentation for all titles and corresponding items with counted points
 sorted from newest to oldest
 option to try choosing items again
@@ -242,8 +262,6 @@ images used in the app as logo
 
 ## To Do
 
-- register and login user to make private lists
-- create tables for user data storage
 - reset function to start chosing again
 
 #### This tool made my life a lot easier, i hope it will do same for you

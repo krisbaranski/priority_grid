@@ -20,11 +20,12 @@ pathspec==0.12.1
 PyYAML==6.0.1
 regex==2023.12.25
 six==1.16.0
-SQLAlchemy==2.0.30
 sqlparse==0.5.0
 termcolor==2.4.0
 tomli==2.0.1
 tqdm==4.66.4
 typing_extensions==4.12.2
 Werkzeug==3.0.3
-zipp==3.19.2
+zipp==3.19.2cs50
+Flask-Session
+requests
