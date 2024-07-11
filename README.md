@@ -45,20 +45,20 @@ The method i implement is the **Prioritization Matrix** and it looks like image 
 
 #### Explanation
 
-This apps purpose is to specify the easy way, what your priorities in particular subject are (i.e. qualities, tasks, todos ...).
-When we have some subject to prioritize, it doesn't become obvious what is their right order. This app clearify important properties as a simple list.
+The purpose of this apps is to use the easy way to prioritize a particular subject (i.e. qualities, tasks, todos ...).
+It doesn't become obvious what is the right order of those properties/items. This app clearify important properties as a simple sorted list.
 
 Classical approach is to do it manually, as you can see on image above (priority matrix). It will take some work to fill all items on paper, compare and count them, replace items order. So, as you can see, its time consuming.
 
 Therefore this app is an easy tool to create a list and order your items with a few clicks.
 
 The app go through a random loop of properties, showing them as pairs.
-There you can choose only one, which is more of value. It continue until all properties were meet once.
+There you can choose only one, which is more of value. It continue until all properties were met once.
 In the end, you get a result as a list of key:value pairs of those properties, ordered descending.
 The property on top have the most "points" and last one the least or no "points".
 Thats how your properties will give a result of priority grid. From most to least important.
 
-You can make as many headings as you like and you can create a new list to prioritize.
+You can make as many headings/titles as you like and you can create a corresponding new list to prioritize.
 You can also run your "matrix" again after reset.
 Consider that number of your items will give multiple pairs i.e. 6 items = 15 possible pairs, 10 items = 45. It can still take few minutes to figure out your priority grid.
 
@@ -66,20 +66,21 @@ Consider that number of your items will give multiple pairs i.e. 6 items = 15 po
 
 #### Follow this steps
 
-1. on main page `index` is a button `create new` to start, it redirect you to title page
-2. on `title` page fill input with a title of your priority list, i.e.
+1. `register` and create new account or `login` to your password protected account 
+2. on main page `index` is a button `create new` to start, it redirect you to title page
+3. on `title` page fill input with a title of your priority list, i.e.
    **`Qualities`**
-3. now you are redirected to `items` page where you create a list of items to work with, i.e.
+4. now you are redirected to `items` page where you create a list of items to work with, i.e.
    **`Strong`**
    **`Fast`**
    **`Something`**
    `...`
    afer finish push the button `start choosing`
-4. now you are redirected to `choose` page where you get pairs of items. Choose only one of them, which is more valuable for you i.e.:
+5. now you are redirected to `choose` page where you get pairs of items. Choose only one of them, which is more valuable for you i.e.:
    **`Strong`** OR **`Fast`**
-5. those pairs will continue until all possible combinations are shown (i.e. 6 items = 15 possible pairs)
-6. when finished, you will be redirected to `result` page where you get a list of your items sorted from most for least important
-7. on `history` page are stored all your lists with titles and corresponding items
+6. those pairs will continue until all possible combinations are shown (i.e. 6 items = 15 possible pairs)
+7. when finished, you will be redirected to `result` page where you get a list of your items sorted from most for least important
+8. on `history` page are stored all your lists with titles and corresponding items
 
 ###
 
@@ -111,6 +112,9 @@ Steps of preperation to work with project:
 - you can also install gunicorn for local testing
   `pip install gunicorn`
 
+- install werkzeug:
+  `pip install werkzeug`
+
 ## Build up
 
 ```
@@ -133,7 +137,7 @@ Steps of preperation to work with project:
 #### app.py
 
 ```
-- import of dependencies (Flask, os, config, random, sqlite3)
+- import of dependencies (Flask, os, config, random, sqlite3, werkzeug)
 - define functions for:
     > database
     > error check
