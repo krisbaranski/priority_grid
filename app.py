@@ -1,9 +1,13 @@
 import os
 
 from flask import Flask, redirect, render_template, request, session, url_for
+from flask_session import Session
+from werkzeug.security import check_password_hash, generate_password_hash
 from config import Config
 import random
 import sqlite3
+
+from helpers import login_required
 
 
 # Configure application
@@ -12,8 +16,10 @@ app = Flask(__name__)
 # Configure secret key
 app.config.from_object(Config)
 
-# Ensure templates are auto_reloaded
-app.config["TEMPLATES_AUTO_RELOAD"] = True
+# Configure session to use filesystem (instead of signed cookies)
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
 
 
 @app.after_request
@@ -47,13 +53,105 @@ def isalpha_or_space(self):
     return True
 
 
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    """Log user in, database access with context manager"""
+
+    # Forget any user_id
+    session.clear()
+
+    if request.method == "POST":
+        # Ensure username was submitted
+        if not request.form.get("username"):
+            return render_template("error.html", message="Must provide username")
+
+        # Ensure password was submitted
+        elif not request.form.get("password"):
+            return render_template("error.html", message="Must provide password")
+
+        # Query database for username
+        with get_db_connection() as conn:
+            rows = conn.execute(
+                "SELECT * FROM users WHERE username = ?", (request.form.get("username"),)).fetchall()
+
+        # Ensure username exists and password is correct
+        if len(rows) != 1 or not check_password_hash(
+            rows[0]["hash"], request.form.get("password")
+        ):
+            return render_template("error.html", message="invalid username and/or password")
+
+        # Remember which user has logged in
+        session["user_id"] = rows[0]["id"]
+        session["username"] = rows[0]["username"]
+
+        # Redirect user to home page
+        return redirect("/")
+
+    else:
+        return render_template("login.html")
+
+
+@app.route("/logout")
+def logout():
+    """Log user out"""
+
+    # Forget any user_id
+    session.clear()
+
+    # Redirect user to login form
+    return redirect("/login")
+
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    """Register user, database access with context manager"""
+
+    # Forget any user_id
+    session.clear()
+
+    if request.method == "POST":
+        # Ensure input exists
+        if not request.form.get("username") or not request.form.get("password") or not request.form.get("confirmation"):
+            return render_template("error.html", message="Must provide username and password")
+
+        # Ensure password and confirmation is same
+        elif request.form.get("password") != request.form.get("confirmation"):
+            return render_template("error.html", message="Password and confirmation must be same")
+
+        # Call database for new user
+        with get_db_connection() as conn:
+            rows = conn.execute("SELECT * FROM users WHERE username = ?", (request.form.get("username"),)).fetchall()
+
+            # Ensure username does not exists
+            if len(rows) != 0:
+                return render_template("error.html", message="Username already exists")
+
+            # Insert new user to database
+            hashed_password = generate_password_hash(request.form.get("password"))
+            conn.execute("INSERT INTO users (username, hash) VALUES(?, ?)",
+                         (request.form.get("username"), hashed_password))
+
+            # Fetch the new user's details
+            rows = conn.execute("SELECT * FROM users WHERE username = ?", (request.form.get("username"),)).fetchall()
+
+        # Remember which user has logged in
+        session["user_id"] = rows[0]["id"]
+
+        return redirect("/")
+
+    else:
+        return render_template("register.html")                
+
+
 @app.route("/")
+@login_required
 def index():
     """Set basic informations about app"""
     return render_template("index.html")
 
 
 @app.route("/title", methods=["GET", "POST"])
+@login_required
 def title():
     """Add title"""
     if request.method == "POST":
@@ -73,9 +171,9 @@ def title():
             return render_template("error.html", message="Please input text")
 
         # Insert title
-        conn = get_db_connection()
-        conn.execute("INSERT INTO titles (title) VALUES (?)", (title,))
-        title_id = conn.execute("SELECT max(id) FROM titles").fetchone()[0]
+        user_id = session["user_id"]
+        conn.execute("INSERT INTO titles (title, user_id) VALUES (?, ?)", (title, user_id))
+        title_id = conn.execute("SELECT max(id) FROM titles WHERE user_id = ?", (user_id,)).fetchone()[0]
         conn.commit()
         conn.close()
 
@@ -91,6 +189,7 @@ def title():
 
 
 @app.route("/items/<int:title_id>", methods=["GET", "POST"])
+@login_required
 def items(title_id):
     """Add items to the list"""
     conn = get_db_connection()
@@ -129,6 +228,7 @@ def items(title_id):
 
 
 @app.route("/choose/<int:title_id>", methods=["GET", "POST"])
+@login_required
 def choose(title_id):
     if 'game_data' not in session:
         conn = get_db_connection()
@@ -150,7 +250,7 @@ def choose(title_id):
     
     if request.method == 'POST':
         selected_item = int(request.form['selected_item'])
-        game_data['count'][str(selected_item)] += 1
+        game_data['count'][selected_item] += 1
 
         conn = get_db_connection()
         conn.execute("UPDATE items SET count = count + 1 WHERE id = ?", (selected_item,))
@@ -174,6 +274,7 @@ def choose(title_id):
 
 
 @app.route("/result/<int:title_id>")
+@login_required
 def result(title_id):
     game_data = session.pop('game_data', None)
     if not game_data:
@@ -181,7 +282,7 @@ def result(title_id):
 
     conn = get_db_connection()
     title = conn.execute("SELECT title FROM titles WHERE id = ?", (game_data['title_id'],)).fetchone()
-    items = conn.execute('SELECT * FROM items WHERE title_id = ?', (game_data['title_id'],)).fetchall()
+    # items = conn.execute('SELECT * FROM items WHERE title_id = ?', (game_data['title_id'],)).fetchall()
     sorted_items = conn.execute("SELECT * FROM items WHERE title_id = ? ORDER BY count DESC", (game_data['title_id'],)).fetchall()
     conn.close()
 
@@ -189,6 +290,7 @@ def result(title_id):
 
 
 @app.route('/reset_game', methods=["POST"])
+@login_required
 def reset_game(title_id):
     conn = get_db_connection()
     title_id = conn.execute("SELECT id FROM titles").fetchone()[0]
@@ -201,6 +303,7 @@ def reset_game(title_id):
 
 
 @app.route("/delete_item/<int:title_id>", methods=["POST"])
+@login_required
 def delete_item(title_id):
     conn = get_db_connection()
     conn.execute("DELETE FROM items WHERE id = ?", (title_id,))
@@ -210,6 +313,7 @@ def delete_item(title_id):
 
 
 @app.route("/delete/<int:title_id>", methods=["POST"])
+@login_required
 def delete(title_id):
     conn = get_db_connection()
     conn.execute("DELETE FROM titles WHERE id = ?", (title_id,))
@@ -220,10 +324,12 @@ def delete(title_id):
 
 
 @app.route("/history", methods=["GET"])
+@login_required
 def history():
     """Show history of priorities"""
     conn = get_db_connection()
-    titles = conn.execute("SELECT * FROM titles ORDER BY id DESC").fetchall()
+    user_id = session["user_id"]
+    titles = conn.execute("SELECT * FROM titles WHERE user_id = ? ORDER BY id DESC", (user_id,)).fetchall()
     items = conn.execute("SELECT * FROM items ORDER BY count DESC").fetchall()
     conn.close()
 
@@ -239,8 +345,9 @@ def history():
             })
 
     # Show rendered history page with all transactions
-    return render_template("history.html", titles=titles, items_by_title=items_by_title)
+    return render_template("history.html", user_id=user_id, titles=titles, items_by_title=items_by_title)
 
 
 if __name__ == "__main__":
     app.run(debug=True)
+    
