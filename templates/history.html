@@ -24,6 +24,7 @@
 
 <div class="container intro">
   <h1 class="text-center my-5">History</h1>
+  {% if session["user_id"] %}
   {% if not titles %}
   <h3 class="text-center my-5">No History yet!</h3>
   {% endif %}
@@ -74,5 +75,6 @@
     </div>
     {% endfor %}
   </div>
+  {% endif %}
 </div>
 {% endblock %}
