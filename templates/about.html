@@ -1,0 +1,60 @@
+{% extends "layout.html" %} {% block main %}
+<div id="preloader">
+  <img
+    src="{{ url_for('static', filename='preloader.png') }}"
+    alt="Loading..."
+  />
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col"></div>
+    <div class="col-10 col-sm-10 col-md-9 col-lg-6">
+      <div class="text-center my-5">
+        <h1 class="display-5 py-3">Welcome to Priority Grid</h1>
+
+        <div class="text-center">
+          <div class="text-start text-white">
+            <p>
+              Consider having some tasks or list of priorities. You would like
+              to give them right priority order, which is not obvious. Doing it
+              manually can become very time consuming.
+            </p>
+            <p>
+              Try this app and see how easy it can be, to work with priorities.
+              Have in mind, that number of your items will give multiple pairs
+              to choose i.e. 6 items = 15 possible combinations, 10 items = 45.
+            </p>
+            <p>
+              Log in or register to use grid and have access to your own history
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col"></div>
+  </div>
+</div>
+
+<script>
+  window.addEventListener('load', function () {
+    const preloader = document.getElementById('preloader');
+    const content = document.getElementById('content');
+
+    // Show preloader and animate 3 seconds
+    setTimeout(function () {
+      // Fade out preloader
+      preloader.style.opacity = '0';
+
+      setTimeout(function () {
+        // Hide preloader after fading out
+        preloader.style.display = 'none';
+
+        // Show main content
+        content.style.content = 'block';
+        // Wait for fade out transition to complete
+      }, 1000);
+      // Display preloader for 2 seconds
+    }, 1000);
+  });
+</script>
+{% endblock %}

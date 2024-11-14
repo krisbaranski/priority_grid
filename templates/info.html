@@ -1,0 +1,83 @@
+{% extends "layout.html" %} {% block main %}
+
+<div class="container-fluid">
+    <div class="row text-start">
+        <div class="col"></div>
+        <div class="col-10 col-sm-10 col-md-9 col-lg-6">
+            <h3 class="display-5 my-5 text-center">Priority Grid</h3>
+            <p class="py-2">
+                App made as a final project for Harvard University CS50´s "Introduction to Enterprices of Computer Science and the Art of Programming".
+            </p>
+
+            <p>
+                Prioritizing methods utilizes the principles of importance and urgency to organize priorities and workload. Here are examples of approach:
+                <ul class="dotted">
+                    <li>• ABC analysis</li>
+                    <li>• Pareto analysis</li>
+                    <li>• Eisenhower Box</li>
+                    <li>• Priority Matrix</li>
+                </ul>
+            </p>
+            <p>
+                The method i implement is the Prioritization Matrix and it looks like image below
+            </p>
+            <img class="img-fluid rounded img-thumbnail my-5" alt="prioritization matrix" src="/static/assets/prioritization_matrix.png">
+            <p>
+                The purpose of this app is to prioritize a particular subject (i.e. qualities, tasks, todos ...) the easy way. Sometimes it doesn't become obvious what is the right order of those properties/items.
+            </p>
+            <p>
+                This app clearify important properties as a simple sorted list. Classical approach is to do it manually, as you can see on image above (priority matrix).
+                It will take some work to fill all items on paper, compare and count them, replace items order. So, as you can see, it can become very time consuming.
+            </p>
+            <p>
+                The app go through a random loop of given properties, showing them as pairs. There you can choose only one, which is more of value to you.
+                It continue until all properties were met once. In the end, you get a result as a list of key:value pairs of those properties, ordered descending.
+                The property on top have the most "points" and last one the least or no "points". Thats how your properties will give a result of priority grid. From most to least important.
+            </p>
+            <p>
+                You can make as many headings/titles as you like and you can create a corresponding new list to prioritize. You can also run your "matrix" again after reset.
+                Depending on number of your priorities, app will give you multiple pairs i.e. 6 items = 15 possible pairs, 10 items = 45. It can still take few minutes to figure out your priority grid.
+            </p>
+            <p>
+                Enjoy!
+            </p>
+            <h5 class="my-2 text-center">Tech Stack</h5>
+            <p>
+                Flask, Python, Jinja, SQLite3, HTML, CSS, Bootstrap, JavaScript
+            </p>
+            <p class="my-5">
+                All rights reserved. Copyright krisbaranski.com 2024
+            </p>
+        </div>
+        <div class="col"></div>
+    </div>
+
+<div>
+
+</div>
+</div>
+
+
+<script>
+  window.addEventListener("load", function () {
+    const preloader = document.getElementById("preloader")
+    const content = document.getElementById("content")
+
+    // Show preloader and animate 3 seconds
+    setTimeout(function () {
+      // Fade out preloader
+      preloader.style.opacity = "0"
+
+      setTimeout(function () {
+        // Hide preloader after fading out
+        preloader.style.display = "none"
+
+        // Show main content
+        content.style.content = "block"
+        // Wait for fade out transition to complete
+      }, 1000)
+      // Display preloader for 2 seconds
+    }, 1000)
+  })
+</script>
+{% endblock %}

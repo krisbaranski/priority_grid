@@ -5,115 +5,94 @@
     alt="Loading..."
   />
 </div>
-<div class="intro">
-  <div class="text-center my-5">
-    <h1 class="display-1 py-3">Welcome</h1>
-    <p>Read introduction and rules or jump directly into the grid...</p>
-  </div>
-  <div id="accordion" class="my-5">
-    <div class="text-center">
-      <button
-        class="btn btn-outline-light btn-lg my-3"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#collapseExample_1"
-        aria-expanded="false"
-        aria-controls="collapseExample_1"
-      >
-        <h4>Introduction</h4>
-      </button>
 
-      <div class="collapse" id="collapseExample_1"  data-bs-parent="#accordion">
-        <div class="card border-0 text-start text-white bg-transparent p-3">
-          <p>
-            Often when we have some priorities - if they are tasks "to do" or listed
-            qualities - it doesn't come obvious what is their right prior order. One can
-            do it manually. It will take some work to write things on paper, count them,
-            replace items... So, as you can see, its time consuming.
-          </p>
-          <p>
-            Therefore here you have implemented an easy app to create a list and order
-            your items. With a few clicks you will get your list prioritized.
-          </p>
-
-          <p>
-            Consider that number of your items will give multiple pairs i.e. 6 items =
-            15 possible pairs, 10 items = 45. So it can still take some time to figure
-            out.
-          </p>
-        </div>
-     </div>
-  </div>
-
-  <div class="text-center">
-      <button
-        class="btn btn-outline-light btn-lg my-3"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#collapseExample_2"
-        aria-expanded="false"
-        aria-controls="collapseExample_2"
-      >
-      <h4>Rules</h4>
-      </button>
-
-      <div class="collapse" id="collapseExample_2"  data-bs-parent="#accordion">
-        <div class="card border-0 text-start text-white bg-transparent p-3">
-
-          <p>Now follow these steps:</p>
-          <p>
-            1. give a title to your list of priority grid items, i.e.
-            <ul>
-              <li>
-                <span class="example lg">Qualities</span>
-              </li>
-            </ul>
-          </p>
-          <p>2. create a list of items to work with, i.e.</p>
-          <ul class="justify-content-start">
-            <li>
-              <span class="example">Strong</span>
-            </li>
-            <li>
-              <span class="example">Fast</span>
-            </li>
-            <li>
-              <span class="example">Something</span>
-            </li>
-            <li>
-              <span class="example">...</span>
-            </li>
-          </ul>
-          <p>
-            3. now you get pairs of items. Choose only one of them,
-            which is more valuable for you
-          </p>
-          <div class="text-center pb-3">
-            <span class="example">Strong</span><span class="example">Fast</span>
-          </div>
-          <br />
-          <p>
-            4. those pairs will continue until all possible combinations are shown (i.e.
-            6 items = 15 possible pairs)
-          </p>
-          <p>
-            5. when finished, you will get a list of your items sorted from most for
-            least important
-          </p>
-          <br />
-          <p>That's it! So let's ...</p>
-        </div>
-      </div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
     </div>
-  </div>
-
-  <div class="text-center">
-    <a href="{{ url_for('title') }}" class="btn btn-light btn-lg my-3"
-      >Create New</a
-    >
+    <div class="col-10 col-sm-10 col-md-9 col-lg-6">
+      <h1 class="display-5 text-center py-3">Priority Grid</h1>
+            <li class="text-right dotted">
+                <ul>First time here? Read STEPS to understand how it works</ul>
+                <ul>Otherwise jump directly into the ...</ul>
+            </li>
+            <div class="text-center">
+                <a href="{{ url_for('title') }}" class="btn btn-light btn-lg my-5"
+                 >New Grid</a>
+            </div>
+    </div>
+    <div class="col">
+    </div>
   </div>
 </div>
 
+<div class="container text-center">
+  <div class="row">
+    <div class="col">
+    </div>
+    <div class="col-5">
+        <div id="accordion" class="my-3">
+            <div class="text-center">
+                  <button
+                    class="btn btn-outline-light btn-lg my-3 pt-2"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseExample_2"
+                    aria-expanded="false"
+                    aria-controls="collapseExample_2"
+                  >
+                  <h4>STEPS</h4>
+                  </button>
+                <div class="collapse" id="collapseExample_2"  data-bs-parent="#accordion">
+                    <div class="card border-0 text-start text-white bg-transparent p-3">
+                          <p>Follow these steps:</p>
+                          <p>
+                            1. give a title to your list of items, i.e.
+                            <ul>
+                              <li>
+                                <span class="example lg">Qualities</span>
+                              </li>
+                            </ul>
+                          </p>
+                          <p>2. create a list of items to work with, i.e.</p>
+                          <ul class="justify-content-start">
+                            <li>
+                              <span class="example">Strong</span>
+                            </li>
+                            <li>
+                              <span class="example">Fast</span>
+                            </li>
+                            <li>
+                              <span class="example">Something</span>
+                            </li>
+                          </ul>
+                          <p>
+                            3. now you get pairs of items. Choose only one of them,
+                            which is more valuable to you
+                          </p>
+                        <div class="text-center pb-3">
+                            <span class="example">Strong</span>OR<span class="example">Fast</span>
+                        </div>
+                          <br />
+                          <p>
+                            4. those pairs will continue until all possible combinations are shown (i.e.
+                            6 items = 15 possible pairs)
+                          </p>
+                          <p>
+                            5. when finished, you will get a list of your items sorted from most for
+                            least important
+                          </p>
+                          <br />
+                          <p>That's it. Enjoy!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+    </div>
+  </div>
+</div>
 
 <script>
   window.addEventListener("load", function () {

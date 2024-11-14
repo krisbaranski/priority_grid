@@ -9,7 +9,7 @@
     />
     <meta
       name="description"
-      content="Priority Grid Appfor finding out your priorities from a list of added items"
+      content="Priority Grid App for finding out your priorities from a list of added items"
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <!-- http://getbootstrap.com/docs/5.3/ -->
@@ -33,12 +33,17 @@
     <div class="container" id="content">
       <nav class="navbar navbar-expand-md sticky-top navbar-dark">
         <div class="container-fluid">
+            {% if session["user_id"] %}
+                <a href="/home">
+            {% else %}
+                <a href="/">
+            {% endif %}
           <img
             class="logo"
-            src="{{ url_for('static', filename='preloader.png') }}"
-            alt="Logo"
+            src="{{ url_for('static', filename='assets/favicon.ico') }}"
+            alt="Priority Grid"
           />
-
+            </a>
           <button
             aria-controls="navbar"
             aria-expanded="false"
@@ -55,26 +60,23 @@
             {% if session["user_id"] %}
             <ul class="navbar-nav ms-auto mt-2 p-2">
               <li class="nav-item">
-                <a class="btn btn-outline-light my-1" href="/">Home</a>
-              </li>
-              <li class="nav-item">
                 <a class="btn btn-outline-light my-1" href="/history"
                   >History</a
                 >
               </li>
               <li class="nav-item">
-                <a class="btn btn-outline-light my-1" href="/logout">Log Out</a>
+                <a class="btn btn-outline-light my-1" href="/logout">Log out</a>
               </li>
             </ul>
             {% else %}
-            <ul class="navbar-nav ms-auto mt-2">
+            <ul class="navbar-nav ms-auto mt-2 p-2">
               <li class="nav-item">
                 <a class="btn btn-outline-light my-1" href="/register"
                   >Register</a
                 >
               </li>
               <li class="nav-item">
-                <a class="btn btn-outline-light my-1" href="/login">Log In</a>
+                <a class="btn btn-outline-light my-1" href="/login">Log in</a>
               </li>
             </ul>
             {% endif %}
@@ -85,6 +87,28 @@
       <main class="container py-5 text-center">
         {% block main %}{% endblock %}
       </main>
+
+    <footer class="footer mt-3 fixed-bottom">
+        <div class="container text-center my-3">
+            <div class="row align-items-center">
+                <div class="col">
+                    <p class="text-start ms-3">
+                            &copy; <a href="https://krisbaranski.com" target="_blank" class="text-decoration-none link-light">krisbaranski.com</a> <span id="current-year"></span>
+                    </p>
+                </div>
+                <div class="col text-end">
+                    <a class="btn btn-outline-light my-1 me-4" href="/info">Info</a>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
     </div>
   </body>
 </html>
+
+<script>
+    // Insert the current year in the footer dynamically
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+</script>
